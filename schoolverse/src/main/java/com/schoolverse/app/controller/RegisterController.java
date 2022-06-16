@@ -63,7 +63,7 @@ public class RegisterController {
 			teacherService.insert(vo);
 			teacher_id_list.add(vo.getTeacher_id());
 		}
-		return null;
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value = "/user/schedule_register", method = RequestMethod.GET)
@@ -107,13 +107,8 @@ public class RegisterController {
 					}
 				}
 			}
-		 
-
-
-
-			
 	
 		
-		return null;
+		return "redirect:/";
 	}
 }

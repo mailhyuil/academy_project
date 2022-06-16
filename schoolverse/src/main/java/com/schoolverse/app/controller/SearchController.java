@@ -50,23 +50,34 @@ public class SearchController {
 		}
 		List<String> classes = basketService.findClassListById(userVO.getUsername());
 		List<ClassVO> classList = new ArrayList<>();
-		
+
 		for(String c : classes) {
 			classList.add(classService.findById(c));
 		}
 		
 		List<AcademyVO> searchList = acaService.findByAcaRegion(aca_region);
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println(searchList.isEmpty());
+		System.out.println();
+		System.out.println();
+		if(searchList.isEmpty()) {
+			model.addAttribute("ERROR", "EMPTY");
+		}
 		List<AcademyVO> resultList = new ArrayList<>();
 		for(AcademyVO vo:searchList) {
 			if(vo.getAca_subject().equals(aca_subject) && vo.getAca_age().equals(aca_age)) {
 				resultList.add(vo);
 			}
-		}				
-		model.addAttribute("SEARCH", resultList);
+		}
+		
+		model.addAttribute("SEARCH", resultList);			
 		model.addAttribute("CLASSES", classList);
 		model.addAttribute("ACA", acaList);
 		return null;
 	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/basket_add", method = RequestMethod.GET)
 	public String basket_add(Model model,long c_code, HttpSession session) {
