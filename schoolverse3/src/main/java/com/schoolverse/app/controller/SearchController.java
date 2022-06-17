@@ -143,13 +143,7 @@ public class SearchController {
 		
 		List<TeacherVO> teacherList = teacherService.findByAcaTeacher(acaVO.getAca_teacher());
 		list.add(teacherList);
-		System.out.println();
-		System.out.println();
-		System.out.println(acaVO.getAca_teacher());
-		System.out.println(teacherList);
-		System.out.println();
-		System.out.println();
-		System.out.println();
+
 		ObjectMapper mapper = new ObjectMapper();
 		 
 		String vo = "";

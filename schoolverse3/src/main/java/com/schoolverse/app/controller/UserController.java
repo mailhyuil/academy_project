@@ -24,6 +24,8 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private BelongService belongService;
 	
 	@RequestMapping(value="/join",method=RequestMethod.GET)
 	public String join(Model model) {
@@ -57,9 +59,15 @@ public class UserController {
 			model.addAttribute("error","PASSWORD_FAIL");
 			return "redirect:/user/login";
 		}
-
-		session.setAttribute("USER", loginUser);
 		
+		BelongVO bVO = belongService.findById(loginUser.getUsername());
+		System.out.println(bVO);
+
+		if(bVO != null) {
+			model.addAttribute("BELONG", bVO.getUsername());
+		}
+		model.addAttribute("USERNAME",loginUser.getUsername());
+		session.setAttribute("USER", loginUser);
 		return "redirect:/";
 	}
 	

@@ -3,6 +3,8 @@ package com.schoolverse.app.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.json.JsonWriteFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.schoolverse.app.model.AcademyVO;
+import com.schoolverse.app.model.UserVO;
 import com.schoolverse.app.service.AcademyService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,8 +30,10 @@ public class HomeController {
 	private AcademyService acaService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() {
-
+	public String home(String BELONG,String USERNAME,Model model) {
+		
+		model.addAttribute("BELONG",BELONG);
+		model.addAttribute("USERNAME",USERNAME);
 		return "home";
 	}
 	

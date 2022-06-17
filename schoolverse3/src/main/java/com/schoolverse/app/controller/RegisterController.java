@@ -44,16 +44,15 @@ public class RegisterController {
 	}
 
 	@RequestMapping(value = "/user/register", method = RequestMethod.POST)
-	public String register(Model model,HttpSession session, AcademyVO acaVO, String[] teacher_name, String[] teacher_info) {
+	public String register(Model model, HttpSession session, AcademyVO acaVO, String[] teacher_name,
+			String[] teacher_info) {
 		UserVO userVO = (UserVO) session.getAttribute("USER");
 		academyService.insert(acaVO);
 
-		BelongVO bVO = BelongVO.builder()
-				.aca_code(acaVO.getAca_code())
-				.username(userVO.getUsername())
-				.build();
+		BelongVO bVO = BelongVO.builder().aca_code(acaVO.getAca_code()).username(userVO.getUsername()).build();
+
 		belongService.insert(bVO);
-		
+
 		Long aca_teacher = acaVO.getAca_teacher();
 		List<Long> teacher_id_list = new ArrayList<>();
 
@@ -63,52 +62,42 @@ public class RegisterController {
 			teacherService.insert(vo);
 			teacher_id_list.add(vo.getTeacher_id());
 		}
+
+		if (bVO != null) {
+			model.addAttribute("BELONG", bVO.getUsername());
+		}
+		model.addAttribute("USERNAME", userVO.getUsername());
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping(value = "/user/schedule_register", method = RequestMethod.GET)
 	public String schedule_register() {
 		return null;
 	}
-	
+
 	@RequestMapping(value = "/user/schedule_register", method = RequestMethod.POST)
-	public String schedule_register(Model model,HttpSession session, String class_name, String class_subject,
+	public String schedule_register(Model model, HttpSession session, String class_name, String class_subject,
 			String class_fee, String[] sche_day, String[] sche_period) {
-		
-		
-		System.out.println();
-		System.out.println();
-		System.out.println(class_name);
-		System.out.println(class_subject);
-		System.out.println(class_fee);
-		System.out.println(Arrays.toString(sche_day) );
-		System.out.println(Arrays.toString(sche_period) );
-		System.out.println();
-		System.out.println();
-		
+
 		UserVO userVO = (UserVO) session.getAttribute("USER");
-		
+
 		long aca_code = belongService.findAcaCodeById(userVO.getUsername());
 
-			ClassVO classVO = ClassVO.builder().aca_code(aca_code).class_name(class_name)
-					.class_subject(class_subject).class_fee(class_fee).build();
-			classService.insert(classVO);
-			// 수업 스케줄 넣기
-			
-			for (int i = 0; i < sche_day.length; i++) {
-				for (int j = 0; j < sche_period.length; j++) {
-					if(Integer.parseInt(sche_period[j].split(";")[0]) == i) {
-						ScheduleVO scheVO = ScheduleVO.builder()
-								.sche_code(classVO.getSche_code())
-								.sche_day(sche_day[i])
-								.sche_period(sche_period[j].split(";")[1])
-								.build();
-						scheduleService.insert(scheVO);
-					}
+		ClassVO classVO = ClassVO.builder().aca_code(aca_code).class_name(class_name).class_subject(class_subject)
+				.class_fee(class_fee).build();
+		classService.insert(classVO);
+		// 수업 스케줄 넣기
+
+		for (int i = 0; i < sche_day.length; i++) {
+			for (int j = 0; j < sche_period.length; j++) {
+				if (Integer.parseInt(sche_period[j].split(";")[0]) == i) {
+					ScheduleVO scheVO = ScheduleVO.builder().sche_code(classVO.getSche_code()).sche_day(sche_day[i])
+							.sche_period(sche_period[j].split(";")[1]).build();
+					scheduleService.insert(scheVO);
 				}
 			}
-	
-		
+		}
+
 		return "redirect:/";
 	}
 }

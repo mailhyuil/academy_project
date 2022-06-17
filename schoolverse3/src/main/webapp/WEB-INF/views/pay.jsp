@@ -29,7 +29,7 @@
       </div>
 </c:forEach>
         </div>
-        <button class="backToSchedule" onclick="window.history.back()">돌아가기</button>
+        <button class="backToSchedule" onclick="location.href = document.referrer;">돌아가기</button>
     </aside>
     <div class="payment_wrapper">
         <div id="box">

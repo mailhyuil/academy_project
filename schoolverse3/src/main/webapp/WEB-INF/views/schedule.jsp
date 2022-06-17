@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>schoolversee</title>
-    <link rel="stylesheet" href="static/css/schedule.css?12fffsddsfsdf2ss313" />
+    <link rel="stylesheet" href="static/css/schedule.css?12fffsssddsfsdf2ss313" />
        <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=nanq2sq1z7"></script>
   </head>

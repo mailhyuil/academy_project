@@ -29,8 +29,7 @@
  		SELECT * FROM academy
  		WHERE aca_age = #{aca_age}
  	</select>
- 	<!-- 이클립스, sts 대문자를 소문자로 : ctrl + shift + y -->
- 	<!-- 소문자 대문자로 : ctrl + shift + x -->
+
  	<insert id="insert" parameterType="AcademyVo">
  		<selectKey keyProperty="aca_code,aca_teacher" resultType="com.schoolverse.app.model.AcademyVO" order="BEFORE">
  			SELECT aca_code.NEXTVAL as aca_code, aca_teacher.NEXTVAL as aca_teacher FROM DUAL	

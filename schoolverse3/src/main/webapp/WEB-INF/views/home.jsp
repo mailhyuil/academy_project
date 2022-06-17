@@ -22,6 +22,9 @@
     <div class="logo">
     	<img src="/static/svg/logo.svg" alt="logo"/>
       <h1>스쿨버스</h1>
+      <c:if test="${not empty USERNAME }">
+      <h1 style="margin-left:10rem;">안녕하세요 ${USERNAME }님!</h1>
+      </c:if>
     </div>
           <c:if test="${empty USER }">
           <ul>
@@ -37,16 +40,21 @@
           </ul>
           </c:if>
           <c:if test="${USER.role == 'ADMIN'}">
-                    <ul>
-            <li><a href="/user/register">학원등록하기</a></li>
-            <li><a href="/user/schedule_register">수업등록하기</a></li>
-          	<li><a href="/user/logout">로그아웃</a></li>
-          	          </ul>
+             <ul>
+				<c:if test="${empty BELONG}">
+					<li><a href="/user/register">학원등록하기</a></li>
+				</c:if>
+				<c:if test="${not empty BELONG}">
+					<li><a href="/user/schedule_register">수업등록하기</a></li>
+				</c:if>
+	          	<li><a href="/user/logout">로그아웃</a></li>
+          	</ul>
           </c:if>
 
-    </nav>
 
+    </nav>
   <!--헤더 끝-->
+  
   <section class="section">
     <!--주 내용-->
     <form action="/search">
